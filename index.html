@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Office Booking</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>Welcome, Jeffry Cheng!</h1>
+      <p>HT Level 6 Workspace</p>
+    </header>
+    <!-- Sidebar -->
+    <section class="section-sidebar-left">
+      <div class="container">
+        <div class="row hint-color">
+          <ul>
+            <li>
+              <img src="images/icon-clue-grey.svg" alt="" />
+              <p>Not Available</p>
+            </li>
+            <li>
+              <img src="images/icon-clue-green.svg" alt="" />
+              <p>Available</p>
+            </li>
+            <li>
+              <img src="images/icon-clue-orange.svg" alt="" />
+              <p>Available Within Next Hour</p>
+            </li>
+            <li>
+              <img src="images/icon-clue-red.svg" alt="" />
+              <p>Under Maintenance</p>
+            </li>
+          </ul>
+        </div>
+        <div class="row btn-booking">
+          <button class="btn btn-hot-desk hot-desk-button" id="hot-desk-button">
+            <img src="images/icon-hot-desk.svg" alt="" />
+            Hot Desk
+          </button>
+          <button class="btn btn-meeting-room">
+            <img src="images/icon-meeting-room.svg" alt="" />
+            Meeting Room
+          </button>
+          <button class="btn btn-check-out">
+            <img src="images/icon-checkout.svg" alt="" />
+            Check Out
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- Content -->
+    <div class="table-container">
+      <!-- Content inside JavaScript -->
+    </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Booking</h2>
+        <label for="exitTheRoom">Enter the Room:</label>
+        <input type="time" id="enterTheRoom" disabled />
+        <label for="exitTheRoom">Exit the Room:</label>
+        <select id="exitTheRoom"></select>
+        <button id="submitExitTheRoom">Submit</button>
+      </div>
+    </div>
+    <!-- JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
