@@ -264,3 +264,8 @@ select {
   font-size: 32px;
   cursor: pointer;
 }
+
+#successModalRoom .modal-content h1,
+#successModalTable .modal-content h1 {
+  margin: auto;
+}
