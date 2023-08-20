@@ -3,19 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart Office Booking</title>
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css" />
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Google font poppins-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Google font pacifico -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Meja Interaktif</title>
   </head>
   <body>
     <!-- Header -->
     <header>
-      <h1>Welcome, Jeffry Cheng!</h1>
+      <h1><span>Welcome,</span> Jeffry Cheng!</h1>
       <p>HT Level 6 Workspace</p>
     </header>
     <!-- Sidebar -->
     <section class="section-sidebar-left">
       <div class="container">
+        <!-- Hint color -->
         <div class="row hint-color">
           <ul>
             <li>
@@ -36,39 +52,215 @@
             </li>
           </ul>
         </div>
+        <!-- Button access -->
         <div class="row btn-booking">
           <button class="btn btn-hot-desk hot-desk-button" id="hot-desk-button">
             <img src="images/icon-hot-desk.svg" alt="" />
             Hot Desk
           </button>
-          <button class="btn btn-meeting-room">
+          <button
+            class="btn btn-meeting-room meeting-room-button"
+            id="meeting-room-button"
+          >
             <img src="images/icon-meeting-room.svg" alt="" />
             Meeting Room
           </button>
-          <button class="btn btn-check-out">
+          <button class="btn btn-check-out logout-button" id="logout-button">
             <img src="images/icon-checkout.svg" alt="" />
             Check Out
           </button>
         </div>
+        <!-- Current time -->
+        <div class="time-container">
+          <img src="images/icon-time.svg" alt="" width="24px" />
+          <p id="current-time"></p>
+        </div>
       </div>
     </section>
-    <!-- Content -->
-    <div class="table-container">
-      <!-- Content inside JavaScript -->
-    </div>
-    <!-- Modal -->
-    <div id="myModal" class="modal">
+
+    <!-- Main -->
+    <main>
+      <div class="room-container" id="roomContainer">
+        <!-- Room meeting 1 -->
+        <div class="room">
+          <span class="room-name"
+            >Meeting <br />
+            Room 1</span
+          >
+          <button class="book-button"></button>
+        </div>
+
+        <!-- Room meeting 2 -->
+        <div class="room available-next-hour">
+          <span class="room-name"
+            >Meeting <br />
+            Room 2</span
+          >
+          <button class="book-button" disabled></button>
+        </div>
+      </div>
+      <div class="table-container" id="tableContainer">
+        <!-- Line 1 -->
+        <div class="line-table">
+          <div class="table">
+            <span class="table-name">A1</span>
+            <button class="book-button"></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">A2</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table">
+            <span class="table-name">A3</span>
+            <button class="book-button"></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">A4</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">A5</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table">
+            <span class="table-name">A6</span>
+            <button class="book-button"></button>
+          </div>
+        </div>
+        <!-- Line 2 -->
+        <div class="line-table">
+          <div class="table booked">
+            <span class="table-name">B1</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">B2</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table">
+            <span class="table-name">B3</span>
+            <button class="book-button"></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">B4</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table">
+            <span class="table-name">B5</span>
+            <button class="book-button"></button>
+          </div>
+          <div class="table">
+            <span class="table-name">B6</span>
+            <button class="book-button"></button>
+          </div>
+        </div>
+        <div style="margin: 20px 0"></div>
+        <!-- Line 3 -->
+        <div class="line-table">
+          <div class="table under-maintenance">
+            <span class="table-name">C1</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table under-maintenance">
+            <span class="table-name">C2</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">C3</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">C4</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table">
+            <span class="table-name">C5</span>
+            <button class="book-button"></button>
+          </div>
+          <div class="table">
+            <span class="table-name">C6</span>
+            <button class="book-button"></button>
+          </div>
+        </div>
+        <!-- Line 4 -->
+        <div class="line-table">
+          <div class="table">
+            <span class="table-name">D1</span>
+            <button class="book-button"></button>
+          </div>
+          <div class="table">
+            <span class="table-name">D2</span>
+            <button class="book-button"></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">D3</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">D4</span>
+            <button class="book-button" disabled></button>
+          </div>
+          <div class="table">
+            <span class="table-name">D5</span>
+            <button class="book-button"></button>
+          </div>
+          <div class="table booked">
+            <span class="table-name">D6</span>
+            <button class="book-button" disabled></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal cofirmation room -->
+    <div id="confirmationModalRoom" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2 id="modalTitle">Booking</h2>
-        <label for="exitTheRoom">Enter the Room:</label>
-        <input type="time" id="enterTheRoom" disabled />
+        <span class="cancel-button-room">&times;</span>
+        <h1>Booking <span id="confirmRoomNumber"></span></h1>
+        <label for="exitTheRoom">Time you enter:</label>
+        <input id="currentTimeRoom" disabled />
         <label for="exitTheRoom">Exit the Room:</label>
         <select id="exitTheRoom"></select>
-        <button id="submitExitTheRoom">Submit</button>
+        <button class="confirm-button-room">Submit</button>
       </div>
     </div>
-    <!-- JS -->
+
+    <!-- Modal cofirmation table -->
+    <div id="confirmationModalTable" class="modal">
+      <div class="modal-content">
+        <span class="cancel-button-table">&times;</span>
+        <h1>Table Booking <span id="confirmTableNumber"></span></h1>
+        <label for="exitTheTable">Time you enter:</label>
+        <input id="currentTimeTable" disabled />
+        <label for="exitTheTable">Exit the Room:</label>
+        <select id="exitTheTable"></select>
+        <button class="confirm-button-table">Submit</button>
+      </div>
+    </div>
+
+    <!-- Modal success room -->
+    <div class="modal" id="successModalRoom">
+      <div class="modal-content">
+        <h1>
+          Successfully booking for
+          <span id="successRoomNumber"></span>
+        </h1>
+        <button class="close-button">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal success table -->
+    <div class="modal" id="successModalTable">
+      <div class="modal-content">
+        <h1>
+          Successfully booking for table
+          <span id="successTableNumber"></span>
+        </h1>
+        <button class="close-button">Close</button>
+      </div>
+    </div>
+
+    <!-- My JS -->
     <script src="script.js"></script>
   </body>
 </html>
