@@ -272,7 +272,7 @@ logoutButton.addEventListener("click", () => {
 
     // Delete all table booking data statuses
     tables.forEach((table) => {
-      table.style.backgroundColor = "green";
+      table.style.backgroundColor = "#5b9a8b";
       const bookButton = table.querySelector(".book-button");
       bookButton.disabled = false;
       table.classList.remove("booked");
@@ -280,7 +280,7 @@ logoutButton.addEventListener("click", () => {
 
     // Delete all room booking data statuses
     rooms.forEach((room) => {
-      room.style.backgroundColor = "green";
+      room.style.backgroundColor = "#5b9a8b";
       const bookButton = room.querySelector(".book-button");
       bookButton.disabled = false;
       room.classList.remove("booked");
