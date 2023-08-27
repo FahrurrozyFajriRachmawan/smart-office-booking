@@ -65,7 +65,7 @@
             <img src="images/icon-meeting-room.svg" alt="" />
             Meeting Room
           </button>
-          <button class="btn btn-check-out logout-button" id="logout-button">
+          <button class="btn btn-check-out logout-button" id="logoutButton">
             <img src="images/icon-checkout.svg" alt="" />
             Check Out
           </button>
@@ -211,6 +211,182 @@
         </div>
       </div>
     </main>
+
+    <!-- Dropdown Meja Booked -->
+    <!-- <div class="dropdown">
+      <button class="dropbtn">Meja Booked</button>
+      <div class="dropdown-content" id="bookedTableDropdown">
+      </div>
+    </div> -->
+
+    <!-- Modal Logout untuk Meja Booked -->
+    <div
+      class="modal"
+      id="logoutBookedModal"
+      style="z-index: 9999; background-color: rgba(0, 0, 0, 0)"
+    >
+      <div class="modal-content">
+        <p class="title-logout"></p>
+        <div class="button-modal-logout">
+          <button id="confirmLogoutBookedButton" class="confirm-button">
+            Yes
+          </button>
+          <button class="close-button">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Logout -->
+    <div class="modal" id="logoutBookedModal2">
+      <div class="modal-content">
+        <!-- Dropdown Meja Booked -->
+        <div class="dropdown">
+          <!-- <button class="dropbtn" id="bookedTableButton">Meja Booked</button> -->
+          <div class="dropdown-content" id="bookedTableDropdown">
+            <!-- Daftar meja yang booked akan ditambahkan melalui JavaScript -->
+          </div>
+        </div>
+        <!-- <p>Are you sure you want to checkout now?</p>
+        <button id="confirmLogoutButton">Logout</button> -->
+        <button class="close-button">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal hot desk -->
+    <div id="modalHotDesk" class="modal">
+      <div class="modal-content">
+        <span
+          class="close-x"
+          data-close
+          onclick="document.getElementById('modalHotDesk').style.display='none';"
+          aria-hidden="true"
+          >&times;</span
+        >
+
+        <div class="dropdown-container">
+          <select id="zoneDropdown">
+            <option value="Select Zone" selected disabled>Select Zone</option>
+            <option value="Zone A">Zone A</option>
+            <option value="Zone B">Zone B</option>
+            <option value="Zone C">Zone C</option>
+            <option value="Zone D">Zone D</option>
+          </select>
+        </div>
+
+        <div class="zone-content" id="zoneContent">
+          <div class="zone zone-a">
+            <div class="table-info-container">
+              <div class="table-info">
+                <span class="table-info-name">A1</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">A2</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">A3</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">A4</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">A5</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">A6</span>
+              </div>
+            </div>
+          </div>
+          <div class="zone zone-b">
+            <div class="table-info-container">
+              <div class="table-info booked">
+                <span class="table-info-name">B1</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">B2</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">B3</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">B4</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">B5</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">B6</span>
+              </div>
+            </div>
+          </div>
+          <div class="zone zone-c">
+            <div class="table-info-container">
+              <div class="table-info under-maintenance">
+                <span class="table-info-name">C1</span>
+              </div>
+              <div class="table-info under-maintenance">
+                <span class="table-info-name">C2</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">C3</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">C4</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">C5</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">C6</span>
+              </div>
+            </div>
+          </div>
+          <div class="zone zone-d">
+            <div class="table-info-container">
+              <div class="table-info">
+                <span class="table-info-name">D1</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">D2</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">D3</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">D4</span>
+              </div>
+              <div class="table-info">
+                <span class="table-info-name">D5</span>
+              </div>
+              <div class="table-info booked">
+                <span class="table-info-name">D6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal meeting room -->
+    <div id="modalMeetingRoom" class="modal">
+      <div class="modal-content">
+        <span
+          class="close-x"
+          data-close
+          onclick="document.getElementById('modalMeetingRoom').style.display='none';"
+          aria-hidden="true"
+          >&times;</span
+        >
+
+        <div class="room-info-container">
+          <div class="room-info">
+            <span class="room-info-name">Meeting Room 1</span>
+          </div>
+          <div class="room-info available-next-hour">
+            <span class="room-info-name">Meeting Room 2</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Modal cofirmation room -->
     <div id="confirmationModalRoom" class="modal">
