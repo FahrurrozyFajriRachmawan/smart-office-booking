@@ -356,6 +356,19 @@ select {
   .modal-content {
     margin: 50px;
   }
+
+  #modalHotDesk .modal-content,
+  #modalMeetingRoom .modal-content {
+    width: 90% !important;
+  }
+
+  .dropdown-container {
+    margin-bottom: 40px;
+  }
+
+  .table-info {
+    margin: 0 !important;
+  }
 }
 
 @media screen and (max-width: 462px) {
@@ -392,7 +405,8 @@ select {
 
 #modalHotDesk .modal-content,
 #modalMeetingRoom .modal-content {
-  margin: 150px 400px;
+  margin: 200px auto;
+  width: 500px;
   height: auto;
 }
 
