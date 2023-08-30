@@ -212,13 +212,6 @@
       </div>
     </main>
 
-    <!-- Dropdown Meja Booked -->
-    <!-- <div class="dropdown">
-      <button class="dropbtn">Meja Booked</button>
-      <div class="dropdown-content" id="bookedTableDropdown">
-      </div>
-    </div> -->
-
     <!-- Modal Logout untuk Meja Booked -->
     <div
       class="modal"
@@ -241,13 +234,8 @@
       <div class="modal-content">
         <!-- Dropdown Meja Booked -->
         <div class="dropdown">
-          <!-- <button class="dropbtn" id="bookedTableButton">Meja Booked</button> -->
-          <div class="dropdown-content" id="bookedTableDropdown">
-            <!-- Daftar meja yang booked akan ditambahkan melalui JavaScript -->
-          </div>
+          <div class="dropdown-content" id="bookedTableDropdown"></div>
         </div>
-        <!-- <p>Are you sure you want to checkout now?</p>
-        <button id="confirmLogoutButton">Logout</button> -->
         <button class="close-button">Close</button>
       </div>
     </div>
@@ -278,21 +266,27 @@
             <div class="table-info-container">
               <div class="table-info">
                 <span class="table-info-name">A1</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">A2</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">A3</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">A4</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">A5</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">A6</span>
+                <button class="table-info-book-button"></button>
               </div>
             </div>
           </div>
@@ -300,21 +294,27 @@
             <div class="table-info-container">
               <div class="table-info booked">
                 <span class="table-info-name">B1</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">B2</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">B3</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">B4</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">B5</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">B6</span>
+                <button class="table-info-book-button"></button>
               </div>
             </div>
           </div>
@@ -322,21 +322,27 @@
             <div class="table-info-container">
               <div class="table-info under-maintenance">
                 <span class="table-info-name">C1</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info under-maintenance">
                 <span class="table-info-name">C2</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">C3</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">C4</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">C5</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">C6</span>
+                <button class="table-info-book-button"></button>
               </div>
             </div>
           </div>
@@ -344,21 +350,27 @@
             <div class="table-info-container">
               <div class="table-info">
                 <span class="table-info-name">D1</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">D2</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">D3</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">D4</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info">
                 <span class="table-info-name">D5</span>
+                <button class="table-info-book-button"></button>
               </div>
               <div class="table-info booked">
                 <span class="table-info-name">D6</span>
+                <button class="table-info-book-button"></button>
               </div>
             </div>
           </div>
@@ -380,9 +392,11 @@
         <div class="room-info-container">
           <div class="room-info">
             <span class="room-info-name">Meeting Room 1</span>
+            <button class="table-info-book-button"></button>
           </div>
           <div class="room-info available-next-hour">
             <span class="room-info-name">Meeting Room 2</span>
+            <button class="table-info-book-button"></button>
           </div>
         </div>
       </div>
@@ -393,8 +407,8 @@
       <div class="modal-content">
         <span class="cancel-button-room">&times;</span>
         <h1>Booking <span id="confirmRoomNumber"></span></h1>
-        <label for="exitTheRoom">Time you enter:</label>
-        <input id="currentTimeRoom" disabled />
+        <label for="enterTheRoom">Time you enter:</label>
+        <select id="enterTheRoom"></select>
         <label for="exitTheRoom">Exit the Room:</label>
         <select id="exitTheRoom"></select>
         <button class="confirm-button-room">Submit</button>
@@ -406,8 +420,8 @@
       <div class="modal-content">
         <span class="cancel-button-table">&times;</span>
         <h1>Table Booking <span id="confirmTableNumber"></span></h1>
-        <label for="exitTheTable">Time you enter:</label>
-        <input id="currentTimeTable" disabled />
+        <label for="enterTheTable">Time you enter:</label>
+        <select id="enterTheTable"></select>
         <label for="exitTheTable">Exit the Room:</label>
         <select id="exitTheTable"></select>
         <button class="confirm-button-table">Submit</button>

@@ -36,8 +36,10 @@ const hotDesk = document.querySelector("#hot-desk-button");
 const modalHotDesk = document.getElementById("modalHotDesk");
 const meetingRoom = document.querySelector("#meeting-room-button");
 const modalMeetingRoom = document.getElementById("modalMeetingRoom");
-// const logoutButton = document.querySelector("#logout-button");
+
+const enterTheRoom = document.getElementById("enterTheRoom");
 const exitTheRoom = document.getElementById("exitTheRoom");
+const enterTheTable = document.getElementById("enterTheTable");
 const exitTheTable = document.getElementById("exitTheTable");
 const currentTimeElement = document.getElementById("currentTime");
 
@@ -55,7 +57,6 @@ const roomInfo = document.querySelectorAll(".room-info");
 
 const logoutButton = document.getElementById("logoutButton");
 const logoutBookedModal2 = document.getElementById("logoutBookedModal2");
-// const confirmLogoutButton = logoutBookedModal2.querySelector("#confirmLogoutButton");
 
 document.addEventListener("click", outsideClickHandler);
 
@@ -84,15 +85,16 @@ tables.forEach((table) => {
         .getMinutes()
         .toString()
         .padStart(2, "0")}`;
-      currentTimeTable.value = formattedTime;
 
       // Table number
       confirmTableNumber.textContent =
         selectedTable.querySelector(".table-name").textContent;
       confirmationModalTable.style.display = "block";
+
+      confirmationModalTable.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+      successModalTable.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
     }
 
-    table.classList.add("booked");
     updateTableInfo();
   });
 
@@ -120,11 +122,8 @@ tables.forEach((table) => {
       // Reset the selected table
       selectedTable = null;
 
-      table.classList.add("booked");
       updateTableInfo(); // Update table information
       populateBookedTableDropdown(); // Update the booked table dropdown
-
-      // updateTableInfo();
     }
   });
 
@@ -146,7 +145,7 @@ rooms.forEach((room) => {
   const bookButton = room.querySelector(".book-button");
 
   room.addEventListener("click", (event) => {
-    // Zoom in room
+    // Zoom in table
     event.stopPropagation();
     if (!roomContainer.classList.contains("zoomed-in")) {
       roomContainer.classList.add("zoomed-in");
@@ -166,12 +165,15 @@ rooms.forEach((room) => {
         .getMinutes()
         .toString()
         .padStart(2, "0")}`;
-      currentTimeRoom.value = formattedTime;
+      // currentTimeRoom.value = formattedTime;
 
       // Room number
       confirmRoomNumber.textContent =
         selectedRoom.querySelector(".room-name").textContent;
       confirmationModalRoom.style.display = "block";
+
+      confirmationModalTable.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+      successModalTable.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
     }
   });
 
@@ -241,9 +243,25 @@ function updateCurrentTime() {
 // Display current time
 updateCurrentTime();
 
-// Exit time room
-for (let hours = 0; hours < 24; hours++) {
+// Enter time room
+for (let hours = 10; hours < 12; hours++) {
   for (let minutes = 0; minutes < 60; minutes += 30) {
+    const option = document.createElement("option");
+    option.value = `${hours}:${minutes}`;
+    option.innerText = `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
+    enterTheRoom.appendChild(option);
+  }
+}
+
+// Exit time room
+for (let hours = 10; hours < 12; hours++) {
+  for (let minutes = 0; minutes < 60; minutes += 30) {
+    if (hours === 10 && minutes === 0) {
+      // Skip the time 10:00 AM
+      continue;
+    }
     const option = document.createElement("option");
     option.value = `${hours}:${minutes}`;
     option.innerText = `${hours.toString().padStart(2, "0")}:${minutes
@@ -253,9 +271,25 @@ for (let hours = 0; hours < 24; hours++) {
   }
 }
 
-// Exit time table
-for (let hours = 0; hours < 24; hours++) {
+// Enter time table
+for (let hours = 10; hours < 12; hours++) {
   for (let minutes = 0; minutes < 60; minutes += 30) {
+    const option = document.createElement("option");
+    option.value = `${hours}:${minutes}`;
+    option.innerText = `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
+    enterTheTable.appendChild(option);
+  }
+}
+
+// Exit time table
+for (let hours = 10; hours < 12; hours++) {
+  for (let minutes = 0; minutes < 60; minutes += 30) {
+    if (hours === 10 && minutes === 0) {
+      // Skip the time 10:00 AM
+      continue;
+    }
     const option = document.createElement("option");
     option.value = `${hours}:${minutes}`;
     option.innerText = `${hours.toString().padStart(2, "0")}:${minutes
@@ -269,17 +303,59 @@ for (let hours = 0; hours < 24; hours++) {
 function updateTableInfo() {
   tableInfo.forEach((info, index) => {
     const tableElement = tables[index];
-    tableElement.classList.contains("booked") ? "Booked" : "Available";
 
     info.querySelector(".table-info-name").textContent;
 
-    if (tableElement.classList.contains("booked")) {
+    const tableInfoBookButton = info.querySelector(".table-info-book-button");
+    if (
+      tableElement.classList.contains("booked") ||
+      tableElement.classList.contains("under-maintenance") ||
+      tableElement.classList.contains("available-next-hour")
+    ) {
       info.classList.add("booked");
+      tableInfoBookButton.disabled = true;
     } else {
       info.classList.remove("booked");
+      tableInfoBookButton.disabled = false;
     }
   });
 }
+
+// Add event listener to table info "Book Now" button
+const tableInfoBookButtons = document.querySelectorAll(
+  ".table-info-book-button"
+);
+tableInfoBookButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    selectedTable = tables[index];
+
+    confirmTableNumber.textContent =
+      selectedTable.querySelector(".table-name").textContent;
+    confirmationModalTable.style.display = "block";
+    confirmationModalTable.style.backgroundColor = "rgba(0, 0, 0, 0)";
+    successModalTable.style.backgroundColor = "rgba(0, 0, 0, 0)";
+
+    updateTableInfo();
+  });
+
+  // Modal confirmation button
+  confirmButtonTable.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    if (selectedTable) {
+      // Deactivate button book now
+      const selectedBookButton = selectedTable.querySelector(".book-button");
+      selectedBookButton.disabled = true;
+
+      // Already booked
+      selectedTable.classList.add("booked");
+      updateTableInfo();
+
+      confirmationModalTable.style.display = "none";
+      selectedTable = null;
+    }
+  });
+});
 
 function updateRoomInfo() {
   roomInfo.forEach((info, index) => {
@@ -302,6 +378,7 @@ hotDesk.addEventListener("click", (event) => {
   tableContainer.style.display = "none";
   roomContainer.style.display = "none";
   modalHotDesk.style.display = "block";
+  updateTableInfo();
 });
 
 // Button meeting room
@@ -362,56 +439,12 @@ logoutButton.addEventListener("click", () => {
   logoutBookedModal2.style.display = "block";
 });
 
-// Confirm Logout
-// confirmLogoutButton.addEventListener("click", () => {
-//   // Perform logout actions here
-//   // Delete all table booking data statuses
-//   tables.forEach((table) => {
-//     table.style.backgroundColor = "#5b9a8b";
-//     const bookButton = table.querySelector(".book-button");
-//     bookButton.disabled = false;
-//     table.classList.remove("booked");
-//   });
-
-//   // Delete all room booking data statuses
-//   rooms.forEach((room) => {
-//     room.style.backgroundColor = "#5b9a8b";
-//     const bookButton = room.querySelector(".book-button");
-//     bookButton.disabled = false;
-//     room.classList.remove("booked");
-//   });
-
-//   tableInfo.forEach((info) => {
-//     info.querySelector(".table-info-name").textContent;
-//     info.classList.remove("booked", "under-maintenance", "available-next-hour");
-//   });
-
-//   roomInfo.forEach((info) => {
-//     info.querySelector(".room-info-name").textContent;
-//     info.classList.remove("booked", "under-maintenance", "available-next-hour");
-//   });
-
-//   // Zoom out
-//   tableContainer.classList.remove("zoomed-in");
-//   roomContainer.classList.remove("zoomed-in");
-//   updateTableInfo();
-//   updateRoomInfo();
-//   logoutBookedModal2.style.display = "none";
-//   logoutButton.style.display = "none";
-// });
-
 // Close Logout modal
 logoutBookedModal2
   .querySelector(".close-button")
   .addEventListener("click", () => {
     logoutBookedModal2.style.display = "none";
   });
-
-// script.js
-// ... (kode JavaScript sebelumnya)
-
-// script.js
-// ... (kode JavaScript sebelumnya)
 
 // Function to populate booked table dropdown
 function populateBookedTableDropdown() {

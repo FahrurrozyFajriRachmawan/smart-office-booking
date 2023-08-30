@@ -168,8 +168,6 @@ main {
 .book-button {
   display: none;
   position: absolute;
-  width: 50px;
-  height: 50px;
   background-color: transparent;
   color: #fff;
   border: none;
@@ -178,8 +176,16 @@ main {
   cursor: pointer;
 }
 
-.zoomed-in .book-button {
+.zoomed-in .room .book-button {
   display: block;
+  width: 105px;
+  height: 105px;
+}
+
+.zoomed-in .table .book-button {
+  display: block;
+  width: 50px;
+  height: 50px;
 }
 
 .booked {
@@ -462,13 +468,17 @@ select:focus {
 
 .table-info {
   margin: 40px 0 20px 0;
-  padding: 5px 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
   text-align: center;
   font-size: 16px;
   background-color: #5b9a8b;
   transition: background-color 0.3s ease-in-out;
-  cursor: not-allowed;
 }
 
 .room-info {
@@ -480,7 +490,26 @@ select:focus {
   font-size: 16px;
   background-color: #5b9a8b;
   transition: background-color 0.3s ease-in-out;
+}
+
+.table-info .table-info-book-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
+}
+
+.table-info-book-button:disabled {
   cursor: not-allowed;
+  background-color: transparent;
 }
 
 .table-info.booked,
@@ -512,14 +541,6 @@ select:focus {
   color: #fff;
 }
 
-/* .modal-content .close-button {
-  margin-top: 20px;
-  padding: 10px 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 .modal-content .close-x {
   position: absolute;
   top: 10px;
@@ -546,9 +567,6 @@ select:focus {
 .dropdown-content {
   display: flex;
   flex-wrap: wrap;
-  /* position: absolute; */
-  /* background-color: #f9f9f9; */
-  /* min-width: 145px; */
   z-index: 1;
 }
 
@@ -556,7 +574,6 @@ select:focus {
   margin: 10px;
   padding: 12px 16px;
   text-decoration: none;
-  /* display: block; */
   border-radius: 10px;
   cursor: pointer;
   background-color: #ccc;
@@ -589,4 +606,10 @@ select:focus {
 .button-modal-logout .confirm-button,
 .button-modal-logout .close-button {
   margin: 0;
+}
+
+.remaining-time-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
