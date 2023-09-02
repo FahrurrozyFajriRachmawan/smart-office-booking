@@ -212,48 +212,6 @@
       </div>
     </main>
 
-    <!-- Modal Logout untuk Meja Booked -->
-    <div
-      class="modal"
-      id="logoutValidation"
-      style="z-index: 9999; background-color: rgba(0, 0, 0, 0)"
-    >
-      <div class="modal-content">
-        <img src="/images/icon-close.svg" alt="" />
-        <p class="title-logout"></p>
-        <span></span>
-        <div class="button-modal-logout">
-          <button id="confirmLogoutBookedButton" class="confirm-button">
-            Yes
-          </button>
-          <button class="close-button">No</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal Logout -->
-    <div class="modal" id="modalLogout">
-      <div class="modal-content">
-        <span
-          class="close-x"
-          data-close
-          onclick="document.getElementById('modalLogout').style.display='none';"
-          aria-hidden="true"
-          >&times;</span
-        >
-
-        <p>Hot Desk</p>
-        <div class="dropdown">
-          <div class="dropdown-content" id="bookedTableDropdown"></div>
-        </div>
-
-        <p>Meeting Room</p>
-        <div class="dropdown">
-          <div class="dropdown-content" id="bookedRoomDropdown"></div>
-        </div>
-      </div>
-    </div>
-
     <!-- Modal hot desk -->
     <div id="modalHotDesk" class="modal">
       <div class="modal-content">
@@ -444,7 +402,7 @@
       </div>
     </div>
 
-    <!-- Modal cofirmation table -->
+    <!-- Modal cofirmation hot desk -->
     <div id="confirmationModalTable" class="modal">
       <div class="modal-content">
         <span class="cancel-button-table">&times;</span>
@@ -476,7 +434,7 @@
       </div>
     </div>
 
-    <!-- Modal success room -->
+    <!-- Modal success meeting room -->
     <div class="modal" id="successModalRoom">
       <div class="modal-content">
         <img src="/images/icon-success.svg" alt="" />
@@ -488,7 +446,7 @@
       </div>
     </div>
 
-    <!-- Modal success table -->
+    <!-- Modal success hot desk -->
     <div class="modal" id="successModalTable">
       <div class="modal-content">
         <img src="/images/icon-success.svg" alt="" />
@@ -499,6 +457,48 @@
         </h1>
 
         <button class="close-button">Done</button>
+      </div>
+    </div>
+
+    <!-- Modal Logout -->
+    <div class="modal" id="modalLogout">
+      <div class="modal-content">
+        <span
+          class="close-x"
+          data-close
+          onclick="document.getElementById('modalLogout').style.display='none';"
+          aria-hidden="true"
+          >&times;</span
+        >
+
+        <p>Hot Desk</p>
+        <div class="dropdown">
+          <div class="dropdown-content" id="bookedTableDropdown"></div>
+        </div>
+
+        <p>Meeting Room</p>
+        <div class="dropdown">
+          <div class="dropdown-content" id="bookedRoomDropdown"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Logout Validation -->
+    <div
+      class="modal"
+      id="logoutValidation"
+      style="z-index: 9999; background-color: rgba(0, 0, 0, 0)"
+    >
+      <div class="modal-content">
+        <img src="/images/icon-close.svg" alt="" />
+        <p class="title-logout"></p>
+        <span></span>
+        <div class="button-modal-logout">
+          <button id="confirmLogoutBookedButton" class="confirm-button">
+            Yes
+          </button>
+          <button class="close-button">No</button>
+        </div>
       </div>
     </div>
 
