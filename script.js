@@ -56,16 +56,51 @@ const roomInfoContainer = document.querySelector(".room-info-container");
 const roomInfo = document.querySelectorAll(".room-info");
 
 const logoutButton = document.getElementById("logoutButton");
-const logoutBookedModal2 = document.getElementById("logoutBookedModal2");
+const modalLogout = document.getElementById("modalLogout");
 
 document.addEventListener("click", outsideClickHandler);
 
-// Section table
+const timeInSelect = document.getElementById("timeIn");
+const timeOutSelect = document.getElementById("timeOut");
+const calculateDurationButton = document.getElementById("calculateDuration");
+const resultDuration = document.getElementById("resultDuration");
+
+// Time in and time out
+timeInSelect.addEventListener("change", updateTimeOut);
+calculateDurationButton.addEventListener("click", calculateDuration);
+
+// Update time out
+function updateTimeOut() {
+  const selectedTimeIn = timeInSelect.value;
+
+  // Disable options earlier than selected time in
+  for (let i = 0; i < timeOutSelect.options.length; i++) {
+    const option = timeOutSelect.options[i];
+    option.disabled = option.value <= selectedTimeIn;
+  }
+}
+
+// Calculate duration and display the result
+function calculateDuration() {
+  const timeIn = timeInSelect.value;
+  const timeOut = timeOutSelect.value;
+
+  const [inHour, inMinute] = timeIn.split(":");
+  const [outHour, outMinute] = timeOut.split(":");
+
+  const durationHour = outHour - inHour;
+  const durationMinute = outMinute - inMinute;
+
+  resultDuration.textContent = `Duration: ${durationHour} hours ${durationMinute} minutes`;
+}
+updateTimeOut();
+
+// Section hot desk
 tables.forEach((table) => {
   const bookButton = table.querySelector(".book-button");
 
   table.addEventListener("click", (event) => {
-    // Zoom in table
+    // Zoom in hot desk
     event.stopPropagation();
     if (!tableContainer.classList.contains("zoomed-in")) {
       tableContainer.classList.add("zoomed-in");
@@ -73,7 +108,7 @@ tables.forEach((table) => {
     }
   });
 
-  // Book button for table
+  // Book button for hot desk
   bookButton.addEventListener("click", (event) => {
     event.stopPropagation();
     selectedTable = table;
@@ -86,11 +121,12 @@ tables.forEach((table) => {
         .toString()
         .padStart(2, "0")}`;
 
-      // Table number
+      // Hot desk number
       confirmTableNumber.textContent =
         selectedTable.querySelector(".table-name").textContent;
       confirmationModalTable.style.display = "block";
 
+      // Bg modal
       confirmationModalTable.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
       successModalTable.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
     }
@@ -98,7 +134,7 @@ tables.forEach((table) => {
     updateTableInfo();
   });
 
-  // Modal confirmation button
+  // Main hot desk confirmation modal button
   confirmButtonTable.addEventListener("click", (event) => {
     event.stopPropagation();
     if (selectedTable) {
@@ -110,8 +146,6 @@ tables.forEach((table) => {
 
       // Already booked
       selectedTable.classList.add("booked");
-
-      // Close confirmation
       confirmationModalTable.style.display = "none";
 
       // Open modal success
@@ -122,8 +156,9 @@ tables.forEach((table) => {
       // Reset the selected table
       selectedTable = null;
 
-      updateTableInfo(); // Update table information
-      populateBookedTableDropdown(); // Update the booked table dropdown
+      // Update hot desk list
+      updateTableInfo();
+      populateBookedTableDropdown();
     }
   });
 
@@ -133,19 +168,89 @@ tables.forEach((table) => {
     confirmationModalTable.style.display = "none";
   });
 
-  // Modal close button success
+  // Modal done button success
   closeButtonTable.addEventListener("click", (event) => {
     event.stopPropagation();
     successModalTable.style.display = "none";
+    tableContainer.style.display = "block";
+    roomContainer.style.display = "block";
+    tableContainer.classList.remove("zoomed-in");
+    roomContainer.classList.remove("zoomed-in");
   });
 });
 
-// Section room
+// Button hot desk when clicked
+hotDesk.addEventListener("click", (event) => {
+  event.stopPropagation();
+  tableContainer.style.display = "none";
+  roomContainer.style.display = "none";
+  modalHotDesk.style.display = "block";
+  updateTableInfo();
+});
+
+// Modal hot desk
+function updateTableInfo() {
+  tableInfo.forEach((info, index) => {
+    const tableElement = tables[index];
+    info.querySelector(".table-info-name").textContent;
+
+    const tableInfoBookButton = info.querySelector(".table-info-book-button");
+    if (
+      tableElement.classList.contains("booked") ||
+      tableElement.classList.contains("under-maintenance") ||
+      tableElement.classList.contains("available-next-hour")
+    ) {
+      info.classList.add("booked");
+      tableInfoBookButton.disabled = true;
+    } else {
+      info.classList.remove("booked");
+      tableInfoBookButton.disabled = false;
+    }
+  });
+}
+
+// bookButton inside the modal hot desk
+const tableInfoBookButtons = document.querySelectorAll(
+  ".table-info-book-button"
+);
+// Hot desk button
+tableInfoBookButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    selectedTable = tables[index];
+
+    confirmTableNumber.textContent =
+      selectedTable.querySelector(".table-name").textContent;
+    confirmationModalTable.style.display = "block";
+    confirmationModalTable.style.backgroundColor = "rgba(0, 0, 0, 0)";
+    successModalTable.style.backgroundColor = "rgba(0, 0, 0, 0)";
+
+    updateTableInfo();
+  });
+
+  // Hot desk confirmation modal button
+  confirmButtonTable.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    if (selectedTable) {
+      // Deactivate button book now
+      const selectedBookButton = selectedTable.querySelector(".book-button");
+      selectedBookButton.disabled = true;
+
+      // Already booked
+      selectedTable.classList.add("booked");
+      updateTableInfo();
+
+      confirmationModalTable.style.display = "none";
+      selectedTable = null;
+    }
+  });
+});
+
+// Section meeting room
 rooms.forEach((room) => {
   const bookButton = room.querySelector(".book-button");
-
   room.addEventListener("click", (event) => {
-    // Zoom in table
+    // Zoom in meeting room
     event.stopPropagation();
     if (!roomContainer.classList.contains("zoomed-in")) {
       roomContainer.classList.add("zoomed-in");
@@ -165,9 +270,8 @@ rooms.forEach((room) => {
         .getMinutes()
         .toString()
         .padStart(2, "0")}`;
-      // currentTimeRoom.value = formattedTime;
 
-      // Room number
+      // Meeting room number
       confirmRoomNumber.textContent =
         selectedRoom.querySelector(".room-name").textContent;
       confirmationModalRoom.style.display = "block";
@@ -181,7 +285,6 @@ rooms.forEach((room) => {
   confirmButtonRoom.addEventListener("click", (event) => {
     event.stopPropagation();
     if (selectedRoom) {
-      // Change the color to gray
       selectedRoom.style.backgroundColor = "#ccc";
 
       // Deactivate button book now
@@ -190,8 +293,6 @@ rooms.forEach((room) => {
 
       // Already booked
       selectedRoom.classList.add("booked");
-
-      // Close confirmation
       confirmationModalRoom.style.display = "none";
 
       // Open modal success
@@ -199,10 +300,11 @@ rooms.forEach((room) => {
         selectedRoom.querySelector(".room-name").textContent;
       successModalRoom.style.display = "block";
 
-      // Reset the selected room
+      // Reset the selected meeting room
       selectedRoom = null;
 
       updateRoomInfo();
+      populateBookedRoomDropdown();
     }
   });
 
@@ -212,14 +314,83 @@ rooms.forEach((room) => {
     confirmationModalRoom.style.display = "none";
   });
 
-  // Modal close button success
+  // Modal done button success
   closeButtonRoom.addEventListener("click", (event) => {
     event.stopPropagation();
     successModalRoom.style.display = "none";
+    tableContainer.style.display = "block";
+    roomContainer.style.display = "block";
+    tableContainer.classList.remove("zoomed-in");
+    roomContainer.classList.remove("zoomed-in");
   });
 });
 
-// Zoom out container room, table
+// Button meeting room when clicked
+meetingRoom.addEventListener("click", (event) => {
+  event.stopPropagation();
+  tableContainer.style.display = "none";
+  roomContainer.style.display = "none";
+  modalMeetingRoom.style.display = "block";
+  updateRoomInfo();
+});
+
+// Modal meeting room
+function updateRoomInfo() {
+  roomInfo.forEach((info, index) => {
+    const roomElement = rooms[index];
+
+    info.querySelector(".room-info-name").textContent;
+
+    const roomInfoBookButton = info.querySelector(".room-info-book-button");
+    if (
+      roomElement.classList.contains("booked") ||
+      roomElement.classList.contains("under-maintenance") ||
+      roomElement.classList.contains("available-next-hour")
+    ) {
+      info.classList.add("booked");
+      roomInfoBookButton.disabled = true;
+    } else {
+      info.classList.remove("booked");
+      roomInfoBookButton.disabled = false;
+    }
+  });
+}
+
+// bookButton inside the modal meeting room
+const roomInfoBookButtons = document.querySelectorAll(".room-info-book-button");
+roomInfoBookButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    selectedRoom = rooms[index];
+
+    confirmRoomNumber.textContent =
+      selectedRoom.querySelector(".room-name").textContent;
+    confirmationModalRoom.style.display = "block";
+    confirmationModalRoom.style.backgroundColor = "rgba(0, 0, 0, 0)";
+    successModalRoom.style.backgroundColor = "rgba(0, 0, 0, 0)";
+
+    updateRoomInfo();
+  });
+
+  // Modal confirmation button
+  confirmButtonRoom.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    if (selectedRoom) {
+      // Deactivate button book now
+      const selectedBookButton = selectedTable.querySelector(".book-button");
+      selectedBookButton.disabled = true;
+
+      // Already booked
+      selectedRoom.classList.add("booked");
+      updateRoomInfo();
+
+      confirmationModalRoom.style.display = "none";
+      selectedRoom = null;
+    }
+  });
+});
+
+// Zoom out container meeting room and hot desk
 function outsideClickHandler(event) {
   if (!event.target.closest(".table-container", "room-container")) {
     roomContainer.style.display = "block";
@@ -229,7 +400,7 @@ function outsideClickHandler(event) {
   }
 }
 
-// Front page time
+// Front page, current running time
 function updateCurrentTime() {
   const currentTimeElement = document.getElementById("current-time");
   const now = new Date();
@@ -239,157 +410,10 @@ function updateCurrentTime() {
   const formattedHours = hours % 12 || 12;
   currentTimeElement.textContent = `${formattedHours}:${minutes} ${ampm}`;
 }
-
-// Display current time
 updateCurrentTime();
+setInterval(updateCurrentTime, 1000);
 
-// Enter time room
-for (let hours = 10; hours < 12; hours++) {
-  for (let minutes = 0; minutes < 60; minutes += 30) {
-    const option = document.createElement("option");
-    option.value = `${hours}:${minutes}`;
-    option.innerText = `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-    enterTheRoom.appendChild(option);
-  }
-}
-
-// Exit time room
-for (let hours = 10; hours < 12; hours++) {
-  for (let minutes = 0; minutes < 60; minutes += 30) {
-    if (hours === 10 && minutes === 0) {
-      // Skip the time 10:00 AM
-      continue;
-    }
-    const option = document.createElement("option");
-    option.value = `${hours}:${minutes}`;
-    option.innerText = `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-    exitTheRoom.appendChild(option);
-  }
-}
-
-// Enter time table
-for (let hours = 10; hours < 12; hours++) {
-  for (let minutes = 0; minutes < 60; minutes += 30) {
-    const option = document.createElement("option");
-    option.value = `${hours}:${minutes}`;
-    option.innerText = `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-    enterTheTable.appendChild(option);
-  }
-}
-
-// Exit time table
-for (let hours = 10; hours < 12; hours++) {
-  for (let minutes = 0; minutes < 60; minutes += 30) {
-    if (hours === 10 && minutes === 0) {
-      // Skip the time 10:00 AM
-      continue;
-    }
-    const option = document.createElement("option");
-    option.value = `${hours}:${minutes}`;
-    option.innerText = `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-    exitTheTable.appendChild(option);
-  }
-}
-
-// Table hot desk
-function updateTableInfo() {
-  tableInfo.forEach((info, index) => {
-    const tableElement = tables[index];
-
-    info.querySelector(".table-info-name").textContent;
-
-    const tableInfoBookButton = info.querySelector(".table-info-book-button");
-    if (
-      tableElement.classList.contains("booked") ||
-      tableElement.classList.contains("under-maintenance") ||
-      tableElement.classList.contains("available-next-hour")
-    ) {
-      info.classList.add("booked");
-      tableInfoBookButton.disabled = true;
-    } else {
-      info.classList.remove("booked");
-      tableInfoBookButton.disabled = false;
-    }
-  });
-}
-
-// Add event listener to table info "Book Now" button
-const tableInfoBookButtons = document.querySelectorAll(
-  ".table-info-book-button"
-);
-tableInfoBookButtons.forEach((button, index) => {
-  button.addEventListener("click", () => {
-    selectedTable = tables[index];
-
-    confirmTableNumber.textContent =
-      selectedTable.querySelector(".table-name").textContent;
-    confirmationModalTable.style.display = "block";
-    confirmationModalTable.style.backgroundColor = "rgba(0, 0, 0, 0)";
-    successModalTable.style.backgroundColor = "rgba(0, 0, 0, 0)";
-
-    updateTableInfo();
-  });
-
-  // Modal confirmation button
-  confirmButtonTable.addEventListener("click", (event) => {
-    event.stopPropagation();
-
-    if (selectedTable) {
-      // Deactivate button book now
-      const selectedBookButton = selectedTable.querySelector(".book-button");
-      selectedBookButton.disabled = true;
-
-      // Already booked
-      selectedTable.classList.add("booked");
-      updateTableInfo();
-
-      confirmationModalTable.style.display = "none";
-      selectedTable = null;
-    }
-  });
-});
-
-function updateRoomInfo() {
-  roomInfo.forEach((info, index) => {
-    const roomElement = rooms[index];
-    roomElement.classList.contains("booked") ? "Booked" : "Available";
-
-    info.querySelector(".room-info-name").textContent;
-
-    if (roomElement.classList.contains("booked")) {
-      info.classList.add("booked");
-    } else {
-      info.classList.remove("booked");
-    }
-  });
-}
-
-// Button hot desk
-hotDesk.addEventListener("click", (event) => {
-  event.stopPropagation();
-  tableContainer.style.display = "none";
-  roomContainer.style.display = "none";
-  modalHotDesk.style.display = "block";
-  updateTableInfo();
-});
-
-// Button meeting room
-meetingRoom.addEventListener("click", (event) => {
-  event.stopPropagation();
-  tableContainer.style.display = "none";
-  roomContainer.style.display = "none";
-  modalMeetingRoom.style.display = "block";
-});
-
-// Zone Dropdown
+// Zone Dropdown hot desk
 zoneDropdown.addEventListener("change", () => {
   const selectedZone = zoneDropdown.value;
   const zoneInfo = getZoneInfo(selectedZone);
@@ -402,7 +426,7 @@ zoneDropdown.addEventListener("click", (event) => {
   roomContainer.style.display = "none";
 });
 
-// Definisikan informasi konten zona
+// Define zone content information
 function getZoneInfo(zone) {
   if (zone === "Zone A") {
     return {
@@ -423,7 +447,7 @@ function getZoneInfo(zone) {
   }
 }
 
-// Tampilkan konten zona pada elemen HTML
+// Show zone contents
 function displayZoneContent(zoneInfo) {
   const zones = document.querySelectorAll(".zone");
   zones.forEach((zone) => {
@@ -436,17 +460,10 @@ function displayZoneContent(zoneInfo) {
 
 // Open Logout modal
 logoutButton.addEventListener("click", () => {
-  logoutBookedModal2.style.display = "block";
+  modalLogout.style.display = "block";
 });
 
-// Close Logout modal
-logoutBookedModal2
-  .querySelector(".close-button")
-  .addEventListener("click", () => {
-    logoutBookedModal2.style.display = "none";
-  });
-
-// Function to populate booked table dropdown
+// Open modal logout hot desk
 function populateBookedTableDropdown() {
   const bookedTables = document.querySelectorAll(".table.booked");
   const bookedTableDropdown = document.getElementById("bookedTableDropdown");
@@ -461,35 +478,38 @@ function populateBookedTableDropdown() {
 
     // Open Logout Booked Modal when clicked
     option.addEventListener("click", () => {
-      openLogoutBookedModal(table);
+      openLogoutValidation(table);
     });
 
     bookedTableDropdown.appendChild(option);
   });
 }
 
-// Open Logout Booked Modal
-function openLogoutBookedModal(tableElement) {
-  const logoutBookedModal = document.getElementById("logoutBookedModal");
-  const modalContent = logoutBookedModal.querySelector(".modal-content");
-  const confirmLogoutBookedButton = logoutBookedModal.querySelector(
+// Open validation Logout hot desk
+function openLogoutValidation(tableElement) {
+  const logoutValidation = document.getElementById("logoutValidation");
+  const modalContent = logoutValidation.querySelector(".modal-content");
+  const confirmLogoutBookedButton = logoutValidation.querySelector(
     "#confirmLogoutBookedButton"
   );
+
+  const timeOut = timeOutSelect.value;
+  updateTimeOut();
 
   const tableName = tableElement.querySelector(".table-name").textContent;
   modalContent.querySelector(
     "p"
-  ).textContent = `Your Hot Desk ${tableName} is until, are you sure you want to checkout now?`;
+  ).textContent = `Your Hot Desk ${tableName} is until ${timeOut} AM, are you sure you want to checkout now?`;
 
-  logoutBookedModal.style.display = "block";
+  logoutValidation.style.display = "block";
 
   // Confirm Logout from Booked Modal
   confirmLogoutBookedButton.addEventListener("click", () => {
     tableElement.classList.remove("booked");
     updateTableInfo();
     populateBookedTableDropdown();
-    logoutBookedModal.style.display = "none";
-    logoutBookedModal2.style.display = "none";
+    logoutValidation.style.display = "none";
+    modalLogout.style.display = "none";
 
     tableElement.style.backgroundColor = "#5b9a8b";
     const bookButton = tableElement.querySelector(".book-button");
@@ -499,25 +519,70 @@ function openLogoutBookedModal(tableElement) {
 
   // Close Booked Modal
   modalContent.querySelector(".close-button").addEventListener("click", () => {
-    logoutBookedModal.style.display = "none";
+    logoutValidation.style.display = "none";
   });
 }
 
 populateBookedTableDropdown();
 
-// Dropdown toggle for Meja Booked
-const bookedTableButton = document.getElementById("bookedTableButton");
-const bookedTableDropdown = document.getElementById("bookedTableDropdown");
+// Open modal logout meeting room
+function populateBookedRoomDropdown() {
+  const bookedRooms = document.querySelectorAll(".room.booked");
+  const bookedRoomDropdown = document.getElementById("bookedRoomDropdown");
 
-bookedTableButton.addEventListener("click", () => {
-  bookedTableDropdown.classList.toggle("show");
-});
+  bookedRoomDropdown.innerHTML = "";
 
-// Close the dropdown if the user clicks outside of it
-window.addEventListener("click", (event) => {
-  if (!event.target.matches(".dropbtn")) {
-    if (bookedTableDropdown.classList.contains("show")) {
-      bookedTableDropdown.classList.remove("show");
-    }
-  }
-});
+  bookedRooms.forEach((room) => {
+    const roomName = room.querySelector(".room-name").textContent;
+    const option = document.createElement("a");
+    option.textContent = roomName;
+    option.href = "#";
+
+    // Open Logout Booked Modal when clicked
+    option.addEventListener("click", () => {
+      openLogoutValidationRoom(room);
+    });
+
+    bookedRoomDropdown.appendChild(option);
+  });
+}
+
+// Open Logout Booked Modal room
+function openLogoutValidationRoom(roomElement) {
+  const logoutValidation = document.getElementById("logoutValidation");
+  const modalContent = logoutValidation.querySelector(".modal-content");
+  const confirmLogoutBookedButton = logoutValidation.querySelector(
+    "#confirmLogoutBookedButton"
+  );
+
+  const timeOut = timeOutSelect.value;
+  updateTimeOut();
+
+  const roomName = roomElement.querySelector(".room-name").textContent;
+  modalContent.querySelector(
+    "p"
+  ).textContent = `Your Meeting Room ${roomName} is until ${timeOut} AM, are you sure you want to checkout now?`;
+
+  logoutValidation.style.display = "block";
+
+  // Confirm Logout from Booked Modal
+  confirmLogoutBookedButton.addEventListener("click", () => {
+    roomElement.classList.remove("booked");
+    updateRoomInfo();
+    populateBookedRoomDropdown();
+    logoutValidation.style.display = "none";
+    modalLogout.style.display = "none";
+
+    roomElement.style.backgroundColor = "#5b9a8b";
+    const bookButton = roomElement.querySelector(".book-button");
+    bookButton.disabled = false;
+    roomElement.classList.remove("booked");
+  });
+
+  // Close Booked Modal
+  modalContent.querySelector(".close-button").addEventListener("click", () => {
+    logoutValidation.style.display = "none";
+  });
+}
+
+populateBookedRoomDropdown();

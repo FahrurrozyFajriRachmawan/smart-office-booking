@@ -157,7 +157,7 @@ main {
 .zoomed-in {
   width: 350px;
   transform: scale(1.5);
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.6s ease-in-out;
 }
 
 .table-name,
@@ -209,15 +209,15 @@ main {
 }
 
 .modal {
-  display: none;
   position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  align-items: center;
-  justify-content: center;
   z-index: 999;
 }
 
@@ -226,14 +226,15 @@ main {
 }
 
 .modal-content {
-  margin: 100px;
-  display: grid;
-  background-color: #fff;
+  margin: 200px auto;
   padding: 50px 100px;
-  height: 400px;
+  position: relative;
+  display: grid;
+  width: 800px;
+  height: auto;
   border-radius: 10px;
   text-align: left;
-  position: relative;
+  background-color: #fff;
   color: #444;
 }
 
@@ -274,6 +275,287 @@ select {
 #successModalRoom .modal-content h1,
 #successModalTable .modal-content h1 {
   margin: auto;
+  text-align: center;
+  font-size: 32px;
+  color: #fff;
+}
+
+#successModalRoom .modal-content p,
+#successModalTable .modal-content p {
+  margin: 0 auto;
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "Pacifico", cursive;
+  color: #fff;
+}
+
+#successModalRoom .modal-content img,
+#successModalTable .modal-content img {
+  margin: 10px auto;
+}
+
+#successModalRoom .modal-content,
+#successModalTable .modal-content {
+  background-color: #8294c4;
+}
+
+#successModalRoom .modal-content button,
+#successModalTable .modal-content button {
+  background-color: #fff;
+  color: #8294c4;
+}
+
+#logoutValidation .modal-content {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #bb6464;
+  color: #fff;
+}
+
+#logoutValidation .modal-content p {
+  margin: 50px auto;
+  font-size: 20px;
+}
+
+#logoutValidation .modal-content img {
+  margin: auto;
+}
+
+#logoutValidation .modal-content button {
+  background-color: #fff;
+  color: #bb6464;
+}
+
+#modalLogout p {
+  margin: 20px 0 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
+
+#modalLogout .modal-content {
+  padding: 50px;
+}
+
+#modalHotDesk .modal-content,
+#modalMeetingRoom .modal-content {
+  width: 500px;
+  height: auto;
+}
+
+.dropdown-container {
+  text-align: center;
+}
+
+#zoneDropdown {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.zone-content {
+  text-align: center;
+}
+
+.zone {
+  display: none;
+}
+
+select {
+  width: 100%;
+}
+
+select:focus {
+  border: 1px solid #ccc;
+  outline: 1px solid #ccc;
+}
+
+.zone.active {
+  display: block;
+}
+
+#closeButtonModal {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.table-info-container,
+.room-info-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.table-info {
+  margin: 40px 0 20px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  background-color: #5b9a8b;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.room-info {
+  margin: 5px;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  background-color: #5b9a8b;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.table-info .table-info-book-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
+}
+
+.room-info .room-info-book-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100px;
+  height: 70px;
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
+}
+
+.table-info-book-button:disabled,
+.room-info-book-button:disabled {
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.table-info.booked,
+.room-info.booked {
+  background-color: #ccc;
+  color: #fff;
+}
+
+.table-info.under-maintenance,
+.room-info.under-maintenance {
+  background-color: #ffb3b3;
+  color: #fff;
+}
+
+.table-info-name,
+.room-info-name {
+  display: block;
+  color: #fff;
+}
+
+.table-info-status,
+.room-info-status {
+  display: block;
+  color: #fff;
+}
+
+.room-info.available-next-hour {
+  background-color: #eebc90;
+  color: #fff;
+}
+
+.modal-content .close-x {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  margin: 10px;
+  padding: 12px 16px;
+  text-decoration: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #ccc;
+  color: #fff;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
+.modal-content .title-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.button-modal-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.button-modal-logout .confirm-button,
+.button-modal-logout .close-button {
+  margin: 0;
+}
+
+.remaining-time-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Mobile */
@@ -332,8 +614,35 @@ select {
     margin: 520px 0 50px 0 !important;
   }
 
-  .modal-content {
-    padding: 40px;
+  #modalHotDesk .modal-content {
+    padding: 60px 100px;
+  }
+
+  #modalLogout p {
+    margin: 10px 0;
+  }
+
+  #modalLogout .modal-content {
+    margin: 100px auto;
+    width: 80%;
+    height: 80vh;
+    overflow: scroll;
+  }
+
+  #logoutValidation .modal-content {
+    margin: 100px auto;
+    width: 80%;
+    height: 80vh;
+  }
+
+  #confirmationModalTable .modal-content,
+  #confirmationModalRoom .modal-content {
+    width: 80%;
+  }
+
+  #successModalTable .modal-content,
+  #successModalRoom .modal-content {
+    width: 80%;
   }
 }
 
@@ -357,15 +666,24 @@ select {
 
   .zoomed-in {
     transform: scale(1.2);
+    width: 80%;
   }
 
-  .modal-content {
-    margin: 50px;
+  #confirmationModalTable .modal-content,
+  #confirmationModalRoom .modal-content {
+    padding: 70px 60px;
+  }
+
+  #successModalTable .modal-content,
+  #successModalRoom .modal-content {
+    padding: 70px 60px;
   }
 
   #modalHotDesk .modal-content,
   #modalMeetingRoom .modal-content {
-    width: 90% !important;
+    margin: 200px auto;
+    padding: 80px 90px;
+    width: 80% !important;
   }
 
   .dropdown-container {
@@ -391,10 +709,6 @@ select {
   .zoomed-in {
     transform: scale(1.2);
   }
-
-  .modal-content {
-    margin: 20px;
-  }
 }
 
 @media screen and (max-width: 379px) {
@@ -407,209 +721,4 @@ select {
     width: 30px;
     height: 30px;
   }
-}
-
-#modalHotDesk .modal-content,
-#modalMeetingRoom .modal-content {
-  margin: 200px auto;
-  width: 500px;
-  height: auto;
-}
-
-.dropdown-container {
-  text-align: center;
-}
-
-#zoneDropdown {
-  padding: 5px 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  background-color: #fff;
-}
-
-.zone-content {
-  text-align: center;
-}
-
-.zone {
-  display: none;
-}
-
-select {
-  width: 85%;
-}
-
-select:focus {
-  border: 1px solid #ccc;
-  outline: 1px solid #ccc;
-}
-
-.zone.active {
-  display: block;
-}
-
-#closeButtonModal {
-  position: absolute;
-  top: 30px;
-  right: 40px;
-  font-size: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.table-info-container,
-.room-info-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.table-info {
-  margin: 40px 0 20px 0;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 16px;
-  background-color: #5b9a8b;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.room-info {
-  margin: 5px;
-  padding: 10px;
-  width: 100px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 16px;
-  background-color: #5b9a8b;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.table-info .table-info-book-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 40px;
-  height: 40px;
-  border: none;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: transparent;
-  color: #fff;
-}
-
-.table-info-book-button:disabled {
-  cursor: not-allowed;
-  background-color: transparent;
-}
-
-.table-info.booked,
-.room-info.booked {
-  background-color: #ccc;
-  color: #fff;
-}
-
-.table-info.under-maintenance,
-.room-info.under-maintenance {
-  background-color: #ffb3b3;
-  color: #fff;
-}
-
-.table-info-name,
-.room-info-name {
-  display: block;
-  color: #fff;
-}
-
-.table-info-status,
-.room-info-status {
-  display: block;
-  color: #fff;
-}
-
-.room-info.available-next-hour {
-  background-color: #eebc90;
-  color: #fff;
-}
-
-.modal-content .close-x {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 32px;
-  cursor: pointer;
-}
-
-.dropdown {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.dropbtn {
-  background-color: #3498db;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown-content {
-  display: flex;
-  flex-wrap: wrap;
-  z-index: 1;
-}
-
-.dropdown-content a {
-  margin: 10px;
-  padding: 12px 16px;
-  text-decoration: none;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: #ccc;
-  color: #fff;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.show {
-  display: block;
-}
-
-.modal-content .title-logout {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.button-modal-logout {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-
-.button-modal-logout .confirm-button,
-.button-modal-logout .close-button {
-  margin: 0;
-}
-
-.remaining-time-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

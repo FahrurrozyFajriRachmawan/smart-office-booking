@@ -215,11 +215,13 @@
     <!-- Modal Logout untuk Meja Booked -->
     <div
       class="modal"
-      id="logoutBookedModal"
+      id="logoutValidation"
       style="z-index: 9999; background-color: rgba(0, 0, 0, 0)"
     >
       <div class="modal-content">
+        <img src="/images/icon-close.svg" alt="" />
         <p class="title-logout"></p>
+        <span></span>
         <div class="button-modal-logout">
           <button id="confirmLogoutBookedButton" class="confirm-button">
             Yes
@@ -230,13 +232,25 @@
     </div>
 
     <!-- Modal Logout -->
-    <div class="modal" id="logoutBookedModal2">
+    <div class="modal" id="modalLogout">
       <div class="modal-content">
-        <!-- Dropdown Meja Booked -->
+        <span
+          class="close-x"
+          data-close
+          onclick="document.getElementById('modalLogout').style.display='none';"
+          aria-hidden="true"
+          >&times;</span
+        >
+
+        <p>Hot Desk</p>
         <div class="dropdown">
           <div class="dropdown-content" id="bookedTableDropdown"></div>
         </div>
-        <button class="close-button">Close</button>
+
+        <p>Meeting Room</p>
+        <div class="dropdown">
+          <div class="dropdown-content" id="bookedRoomDropdown"></div>
+        </div>
       </div>
     </div>
 
@@ -392,11 +406,11 @@
         <div class="room-info-container">
           <div class="room-info">
             <span class="room-info-name">Meeting Room 1</span>
-            <button class="table-info-book-button"></button>
+            <button class="room-info-book-button"></button>
           </div>
           <div class="room-info available-next-hour">
             <span class="room-info-name">Meeting Room 2</span>
-            <button class="table-info-book-button"></button>
+            <button class="room-info-book-button"></button>
           </div>
         </div>
       </div>
@@ -406,11 +420,26 @@
     <div id="confirmationModalRoom" class="modal">
       <div class="modal-content">
         <span class="cancel-button-room">&times;</span>
-        <h1>Booking <span id="confirmRoomNumber"></span></h1>
-        <label for="enterTheRoom">Time you enter:</label>
-        <select id="enterTheRoom"></select>
-        <label for="exitTheRoom">Exit the Room:</label>
-        <select id="exitTheRoom"></select>
+        <h1><span id="confirmRoomNumber"></span></h1>
+
+        <label for="enterTime">Enter Time:</label>
+        <select id="enterTime">
+          <option value="10:00">10:00 AM</option>
+          <option value="10:30">10:30 AM</option>
+          <option value="11:00">11:00 AM</option>
+          <option value="11:30">11:30 AM</option>
+          <option value="12:00">12:00 AM</option>
+        </select>
+
+        <label for="exitTime">Exit Time:</label>
+        <select id="exitTime">
+          <option value="10:30">10:30 AM</option>
+          <option value="11:00">11:00 AM</option>
+          <option value="11:30">11:30 AM</option>
+          <option value="12:00">12:00 AM</option>
+          <option value="12:30">12:30 AM</option>
+        </select>
+
         <button class="confirm-button-room">Submit</button>
       </div>
     </div>
@@ -419,34 +448,57 @@
     <div id="confirmationModalTable" class="modal">
       <div class="modal-content">
         <span class="cancel-button-table">&times;</span>
-        <h1>Table Booking <span id="confirmTableNumber"></span></h1>
-        <label for="enterTheTable">Time you enter:</label>
-        <select id="enterTheTable"></select>
-        <label for="exitTheTable">Exit the Room:</label>
-        <select id="exitTheTable"></select>
-        <button class="confirm-button-table">Submit</button>
+        <h1>Hot Desk <span id="confirmTableNumber"></span></h1>
+
+        <label for="timeIn">Time In:</label>
+        <select id="timeIn">
+          <option value="10:00">10:00 AM</option>
+          <option value="10:30">10:30 AM</option>
+          <option value="11:00">11:00 AM</option>
+          <option value="11:30">11:30 AM</option>
+          <option value="12:00">12:00 AM</option>
+          <!-- <option value="12:30">12:30 AM</option> -->
+        </select>
+
+        <label for="timeOut">Time Out:</label>
+        <select id="timeOut">
+          <!-- <option value="10:00">10:00 AM</option> -->
+          <option value="10:30">10:30 AM</option>
+          <option value="11:00">11:00 AM</option>
+          <option value="11:30">11:30 AM</option>
+          <option value="12:00">12:00 AM</option>
+          <option value="12:30">12:30 AM</option>
+        </select>
+
+        <button class="confirm-button-table" id="calculateDuration">
+          Submit
+        </button>
       </div>
     </div>
 
     <!-- Modal success room -->
     <div class="modal" id="successModalRoom">
       <div class="modal-content">
+        <img src="/images/icon-success.svg" alt="" />
         <h1>
-          Successfully booking for
+          <p>Booked</p>
           <span id="successRoomNumber"></span>
         </h1>
-        <button class="close-button">Close</button>
+        <button class="close-button">Done</button>
       </div>
     </div>
 
     <!-- Modal success table -->
     <div class="modal" id="successModalTable">
       <div class="modal-content">
+        <img src="/images/icon-success.svg" alt="" />
         <h1>
-          Successfully booking for table
+          <p>Booked</p>
+          Hot Desk
           <span id="successTableNumber"></span>
         </h1>
-        <button class="close-button">Close</button>
+
+        <button class="close-button">Done</button>
       </div>
     </div>
 
