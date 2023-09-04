@@ -558,6 +558,29 @@ select:focus {
   align-items: center;
 }
 
+#closeButtonZoomInTable {
+  display: none;
+  position: absolute;
+  right: 50%;
+  left: 50%;
+  bottom: -50px;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  color: #bcbcbc;
+}
+
+#closeButtonZoomInRoom {
+  display: none;
+  position: absolute;
+  top: 130px;
+  left: 150px;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  color: #bcbcbc;
+}
+
 /* Mobile */
 @media screen and (max-width: 1200px) {
   .section-sidebar-left {

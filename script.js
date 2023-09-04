@@ -65,6 +65,12 @@ const timeOutSelect = document.getElementById("timeOut");
 const calculateDurationButton = document.getElementById("calculateDuration");
 const resultDuration = document.getElementById("resultDuration");
 
+const closeButtonZoomInTable = document.getElementById(
+  "closeButtonZoomInTable"
+);
+
+const closeButtonZoomInRoom = document.getElementById("closeButtonZoomInRoom");
+
 // Time in and time out
 timeInSelect.addEventListener("change", updateTimeOut);
 calculateDurationButton.addEventListener("click", calculateDuration);
@@ -105,6 +111,12 @@ tables.forEach((table) => {
     if (!tableContainer.classList.contains("zoomed-in")) {
       tableContainer.classList.add("zoomed-in");
       roomContainer.style.display = "none";
+    }
+
+    if (tableContainer.classList.contains("zoomed-in")) {
+      closeButtonZoomInTable.style.display = "block";
+    } else {
+      closeButtonZoomInTable.style.display = "none";
     }
   });
 
@@ -255,6 +267,12 @@ rooms.forEach((room) => {
     if (!roomContainer.classList.contains("zoomed-in")) {
       roomContainer.classList.add("zoomed-in");
       tableContainer.style.display = "none";
+    }
+
+    if (roomContainer.classList.contains("zoomed-in")) {
+      closeButtonZoomInRoom.style.display = "block";
+    } else {
+      closeButtonZoomInRoom.style.display = "none";
     }
   });
 
@@ -586,3 +604,23 @@ function openLogoutValidationRoom(roomElement) {
 }
 
 populateBookedRoomDropdown();
+
+closeButtonZoomInTable.addEventListener("click", () => {
+  tableContainer.classList.remove("zoomed-in");
+  roomContainer.classList.remove("zoomed-in");
+  tableContainer.style.display = "block";
+  roomContainer.style.display = "block";
+  closeButtonZoomInTable.style.display = "none";
+
+  selectedTable = null;
+});
+
+closeButtonZoomInRoom.addEventListener("click", () => {
+  tableContainer.classList.remove("zoomed-in");
+  roomContainer.classList.remove("zoomed-in");
+  tableContainer.style.display = "block";
+  roomContainer.style.display = "block";
+  closeButtonZoomInRoom.style.display = "none";
+
+  selectedTable = null;
+});
