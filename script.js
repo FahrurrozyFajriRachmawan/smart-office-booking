@@ -415,6 +415,8 @@ function outsideClickHandler(event) {
     tableContainer.style.display = "block";
     tableContainer.classList.remove("zoomed-in");
     roomContainer.classList.remove("zoomed-in");
+    closeButtonZoomInTable.style.display = "none";
+    closeButtonZoomInRoom.style.display = "none";
   }
 }
 
