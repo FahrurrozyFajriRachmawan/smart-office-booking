@@ -313,6 +313,7 @@ select {
   text-align: center;
   background-color: #bb6464;
   color: #fff;
+  height: 50vh;
 }
 
 #logoutValidation .modal-content p {

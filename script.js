@@ -547,7 +547,10 @@ populateBookedTableDropdown();
 
 // Open modal logout meeting room
 function populateBookedRoomDropdown() {
-  const bookedRooms = document.querySelectorAll(".room.booked");
+  const bookedRooms = document.querySelectorAll(
+    ".room.booked, .room.available-next-hour"
+  );
+
   const bookedRoomDropdown = document.getElementById("bookedRoomDropdown");
 
   bookedRoomDropdown.innerHTML = "";
