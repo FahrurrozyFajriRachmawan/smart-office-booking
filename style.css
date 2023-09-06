@@ -307,13 +307,14 @@ select {
 }
 
 #logoutValidation .modal-content {
+  margin: 100px auto;
   display: grid;
   justify-content: center;
   align-items: center;
   text-align: center;
+  height: auto;
   background-color: #bb6464;
   color: #fff;
-  height: 50vh;
 }
 
 #logoutValidation .modal-content p {
@@ -339,6 +340,7 @@ select {
 }
 
 #modalLogout .modal-content {
+  margin: 100px auto;
   padding: 50px;
 }
 
@@ -651,16 +653,14 @@ select:focus {
   }
 
   #modalLogout .modal-content {
-    margin: 100px auto;
+    margin: 80px auto;
     width: 80%;
-    height: 80vh;
     overflow: scroll;
   }
 
   #logoutValidation .modal-content {
-    margin: 100px auto;
+    margin: 80px auto;
     width: 80%;
-    height: 80vh;
   }
 
   #confirmationModalTable .modal-content,

@@ -586,6 +586,7 @@ function openLogoutValidationRoom(roomElement) {
     "p"
   ).textContent = `Your Meeting Room ${roomName} is until ${timeOut} AM, are you sure you want to checkout now?`;
 
+  modalLogout.style.display = "none";
   logoutValidation.style.display = "block";
 
   // Confirm Logout from Booked Modal
